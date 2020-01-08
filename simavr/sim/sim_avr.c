@@ -277,7 +277,14 @@ avr_callback_sleep_gdb(
 		avr_t * avr,
 		avr_cycle_count_t howLong)
 {
-	uint32_t usec = avr_pending_sleep_usec(avr, howLong);
+	/* figure out how long we should wait to match the sleep deadline */
+	uint64_t deadline_ns = avr_cycles_to_nsec(avr, avr->cycle + howLong);
+	uint64_t runtime_ns = avr_get_time_stamp(avr);
+	uint32_t usec;
+	if (runtime_ns >= deadline_ns)
+		usec = 0;
+	else
+		usec = (deadline_ns - runtime_ns) / 1000;
 	while (avr_gdb_processor(avr, usec))
 		;
 }
@@ -319,9 +326,10 @@ avr_callback_run_gdb(
 			return;
 		}
 		/*
-		 * try to sleep for as long as we can, capped at 1 ms
+		 * try to sleep for as long as we can, for 10 to 1000 cycles
 		 */
 		if (sleep > 1000) sleep = 1000;
+		else if (sleep < 10) sleep = 10;
 		avr->sleep(avr, sleep);
 		avr->cycle += 1 + sleep;
 	}
@@ -383,9 +391,10 @@ avr_callback_run_raw(
 			return;
 		}
 		/*
-		 * try to sleep for as long as we can, capped at 1 ms
+		 * try to sleep for as long as we can, for 10 to 1000 cycles
 		 */
 		if (sleep > 1000) sleep = 1000;
+		else if (sleep < 10) sleep = 10;
 		avr->sleep(avr, sleep);
 		avr->cycle += 1 + sleep;
 	}
