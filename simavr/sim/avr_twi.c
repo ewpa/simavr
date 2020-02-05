@@ -481,7 +481,7 @@ void avr_twi_init(avr_t * avr, avr_twi_t * p)
 	avr_register_io(avr, &p->io);
 	avr_register_vector(avr, &p->twi);
 
-	//printf("%s TWI%c init\n", __FUNCTION__, p->name);
+	//printf("%s TWI%d init\n", __FUNCTION__, p->name);
 
 	// allocate this module's IRQ
 	avr_io_setirqs(&p->io, AVR_IOCTL_TWI_GETIRQ(p->name), TWI_IRQ_COUNT, NULL);

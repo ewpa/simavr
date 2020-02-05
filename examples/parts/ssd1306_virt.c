@@ -478,6 +478,7 @@ ssd1306_init (struct avr_t *avr, struct ssd1306_t * part, int width, int height)
 	part->columns = width;
 	part->rows = height;
 	part->pages = height / 8; 	// 8 pixels per page
+	part->addr_mode = SSD1306_ADDR_MODE_PAGE; // page addressing mode
 
 	/*
 	 * Register callbacks on all our IRQs
