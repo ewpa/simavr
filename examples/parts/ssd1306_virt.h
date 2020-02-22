@@ -162,7 +162,7 @@ typedef struct ssd1306_t
 	enum ssd1306_addressing_mode_t addr_mode;
 
 	uint8_t twi_selected;
-	uint8_t twi_index;
+	uint16_t twi_index;
 } ssd1306_t;
 
 typedef struct ssd1306_pin_t
