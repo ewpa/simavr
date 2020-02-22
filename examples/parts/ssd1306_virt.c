@@ -221,6 +221,15 @@ ssd1306_update_setting (ssd1306_t *part)
 		case SSD1306_VIRT_MEM_ADDRESSING:
 			if (part->spi_data > SSD1306_ADDR_MODE_PAGE)
 				printf ("SSD1306: error ADDRESSING_MODE invalid value %x\n", part->spi_data);
+			// Remap the cursor if changing to horizontal mode
+			if ( part->addr_mode == SSD1306_ADDR_MODE_PAGE
+			&& part->spi_data == SSD1306_ADDR_MODE_HORZ )
+			{
+				if ((part->cursor.column) >= SSD1306_VIRT_COLUMNS - 1)
+					part->cursor.column = 0;
+				if ((part->cursor.page) >= SSD1306_VIRT_PAGES - 1)
+					part->cursor.page = 0;
+			}
 			part->addr_mode = part->spi_data;
 			//printf ("SSD1306: ADDRESSING MODE: 0x%02x\n", part->addr_mode);
 			SSD1306_CLEAR_COMMAND_REG(part);
