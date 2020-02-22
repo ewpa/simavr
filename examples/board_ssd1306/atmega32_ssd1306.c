@@ -67,6 +67,8 @@ void
 demo_set_byte_direct (void)
 {
 	ssd1306_clear_screen ();
+	// Page memory addressing mode
+	ssd1306_set_address_mode(DISPLAY_ADDR_PAGE);
 	uint8_t x = 0;
 	for (uint8_t page = 0; page < SSD1306_PIXEL_PAGES; ++page)
 	{
@@ -75,6 +77,8 @@ demo_set_byte_direct (void)
 			ssd1306_write_byte (x, page, 0xAA);
 		}
 	}
+	// Horizontal memory addressing mode
+	ssd1306_set_address_mode(DISPLAY_ADDR_HORIZONTAL);
 	_delay_ms (DEFAULT_DELAY);
 }
 
@@ -156,6 +160,7 @@ main ()
 	for (;;)
 	{
 		ssd1306_init_display ();
+		ssd1306_set_address_mode(DISPLAY_ADDR_HORIZONTAL);
 
 		demo_show_image ();
 		demo_set_power_state ();

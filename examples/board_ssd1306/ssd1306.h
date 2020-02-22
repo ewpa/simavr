@@ -87,6 +87,11 @@ typedef enum
 
 typedef enum
 {
+  DISPLAY_ADDR_HORIZONTAL, DISPLAY_ADDR_VERTICAL, DISPLAY_ADDR_PAGE
+} display_addr_t;
+
+typedef enum
+{
   POWER_STATE_SLEEP, POWER_STATE_ON
 } power_state_t;
 
@@ -121,6 +126,8 @@ void
 ssd1306_set_power_state (const power_state_t power_state);
 void
 ssd1306_set_display_mode (const display_mode_t display_mode);
+void
+ssd1306_set_address_mode (const display_addr_t address_mode);
 void
 ssd1306_write_byte (const uint8_t x, const uint8_t page, const uint8_t byte);
 void

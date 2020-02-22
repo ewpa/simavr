@@ -93,10 +93,6 @@ ssd1306_init_display (void)
 
   ssd1306_set_display_mode (DISPLAY_MODE_NORMAL);
 
-  // Horizontal memory addressing mode
-  ssd1306_write_instruction (SSD1306_MEM_ADDRESSING);
-  ssd1306_write_instruction (0x00);
-
   ssd1306_write_instruction (SSD1306_SET_DISP_CLOCK);
   ssd1306_write_instruction (0x80);
 
@@ -180,6 +176,13 @@ ssd1306_set_power_state (const power_state_t power_state)
     default:
       break;
     }
+}
+
+void
+ssd1306_set_address_mode(const display_addr_t address_mode)
+{
+  ssd1306_write_instruction (SSD1306_MEM_ADDRESSING);
+  ssd1306_write_instruction (address_mode);
 }
 
 void
