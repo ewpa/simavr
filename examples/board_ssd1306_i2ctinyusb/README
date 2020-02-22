@@ -1,0 +1,12 @@
+board_ssd1306_i2ctinyusb
+
+(C) 2014 Doug Szumski <d.s.szumski@gmail.com>
+Copyright (C) 2020 Ewan Parker.
+
+Cheap and simple I²C to USB interface
+Till Harbaum
+http://www.harbaum.org/till/i2c_tiny_usb
+https://github.com/harbaum/I2C-Tiny-USB
+
+This sample code demonstrates the use of the SSD1306 OLED driver in real life
+using a real device attached to the bus via the I2C Tiny USB.
