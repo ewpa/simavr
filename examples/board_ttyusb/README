@@ -1,0 +1,28 @@
+board_ttyusb
+
+(C) 2011 Michel Pollet <buserror@gmail.com>
+With thanks to Luki <humbell@ethz.ch>
+Copyright (C) 2020 Ewan Parker.
+
+Based on board_hd44780.
+
+This example demonstrated how to attach a real or virtual serial device to
+a simulation.  Useful expamples are GPS, Bluetooth, etc.
+
+You will need three sessions to run this example.
+
+In session 1, run the below.  This will create a virtual link between
+special files ./tmp/pts-0 and /tmp/pts-1.
+  socat -d -d pty,raw,echo=0,link=/tmp/pts-0 pty,raw,echo=0,link=/tmp/pts-1
+
+In session 2, run the following to connect to one side of the link.
+  screen /tmp/pts-0
+
+In session 3, run the example simulation code.  This will connect the AVR
+UART 0 to the other side of the link.
+
+Now in session 2 (the local end of the virtual serial port) you can run
+three commands.
+  l text : to write the supplied text to the LCD.
+  u text : to write the supplied text the the UART.
+  q      : to quit.
